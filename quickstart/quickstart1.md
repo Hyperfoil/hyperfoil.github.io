@@ -24,7 +24,7 @@ redirect_from:
 
 
 ```
-[hyperfoil@localhost]$ run-local examples/single-request.hf.yaml
+[hyperfoil@localhost]$ run-local ../examples/single-request.hf.yaml
 Running benchmark 'single-request'
 Using 1 thread(s)
 Target servers: http://hyperfoil.io:80/ (1 connections)
