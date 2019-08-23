@@ -51,7 +51,7 @@ ansible-galaxy install hyperfoil.hyperfoil_test
 Now, edit your `hosts` file, it could look like this:
 ```
 [hyperfoil-controller]
-controller ansible_host=localhost
+controller ansible_hostname=localhost
 
 [hyperfoil-agent]
 agent-1 ansible_host=localhost
