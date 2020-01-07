@@ -1,3 +1,6 @@
+- title: Basics
+  link: /docs/basics.html
+  description: Learn about basic usage of this documentation.
 - title: Concepts
   link: /docs/concepts.html
   description: Learn about controller and agents, and composition of the benchmark.
