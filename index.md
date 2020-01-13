@@ -2,7 +2,6 @@
 title: Hyperfoil
 sidebar: 06_sidebar
 permalink: index.html
-folder: 
 toc: false
 ---
 
@@ -43,3 +42,11 @@ toc: false
   </div>
 </div>
 </div>
+
+
+&nbsp;
+&nbsp;
+
+
+Hyperfoil is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
