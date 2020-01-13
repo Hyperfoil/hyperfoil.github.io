@@ -24,7 +24,7 @@ entries:
     folderitems:
 
     - title: Introduction
-      url: /index.html
+      url: /0.6_overview.html
       output: web, pdf
 
     - title: Design

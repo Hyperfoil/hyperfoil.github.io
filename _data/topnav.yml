@@ -5,8 +5,6 @@ topnav:
   items:
     - title: GitHub
       external_url: https://github.com/Hyperfoil/Hyperfoil
-    - title: News
-      url: /news
 
 #Topnav dropdowns
 topnav_dropdowns:
