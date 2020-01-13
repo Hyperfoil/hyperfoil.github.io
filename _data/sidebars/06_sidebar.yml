@@ -1,0 +1,191 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: relase-0.6_sidebar
+  product: Release
+  version: 0.6
+  folders:
+
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage.html
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage.html
+      output: pdf
+      type: frontmatter
+
+  - title: Overview
+    output: web, pdf
+    folderitems:
+
+    - title: Introduction
+      url: /index.html
+      output: web, pdf
+
+    - title: Design
+      url: /0.6_design.html
+      output: web, pdf
+
+    - title: Basic Concept
+      url: /0.6_basic_concept.html
+      output: web, pdf
+
+  - title: Quick Start
+    output: web, pdf
+    folderitems:
+
+    - title: First Benchmark
+      url: /0.6_quickstart1.html
+      output: web, pdf
+
+    - title: Steps and statistics
+      url: /0.6_quickstart2.html
+      output: web, pdf
+
+    - title: Complex workflow
+      url: /0.6_quickstart3.html
+      output: web, pdf
+
+    - title: Phases - basics
+      url: /0.6_quickstart4.html
+      output: web, pdf
+
+    - title: Linking phases
+      url: /0.6_quickstart5.html
+      output: web, pdf
+
+    - title: Running the server
+      url: /0.6_quickstart6.html
+      output: web, pdf
+
+    - title: Starting clustered Hyperfoil
+      url: /0.6_quickstart7.html
+      output: web, pdf
+
+    - title: Custom steps and handlers
+      url: /0.6_quickstart8.html
+      output: web, pdf
+
+  - title: User Guide
+    output: web, pdf
+    folderitems:
+
+    - title: Installation
+      url: /0.6_installation.html
+      output: web, pdf
+
+      subfolders:
+      - title: Server Mode
+        output: web, pdf
+        subfolderitems:
+
+        - title: Controller and Agents
+          url: /0.6_controller.html
+          output: web, pdf
+
+        - title: Controller REST API
+          url: /0.6_controller_api.html
+          output: web, pdf
+
+    - title: Execution
+      url: /0.6_execution.html
+      output: web, pdf
+
+      subfolders:
+      - title: Building Blocks
+        output: web, pdf
+        subfolderitems:
+
+        - title: Benchmark
+          url: /0.6_benchmark.html
+          output: web, pdf
+    
+        - title: Phases
+          url: /0.6_phases.html
+          output: web, pdf
+    
+        - title: Scenarios
+          url: /0.6_scenario.html
+          output: web, pdf
+    
+        - title: Steps
+          url: /0.6_steps.html
+          output: web, pdf
+    
+        - title: HTTP Request
+          url: /0.6_http_request.html
+          output: web, pdf
+    
+        - title: HTTP Response Handler
+          url: /0.6_http_response.html
+          output: web, pdf
+ 
+    - title: Reports
+      url: /0.6_report.html
+      output: web, pdf
+
+    - title: Debugging
+      url: /0.6_debug.html
+      output: web, pdf
+
+  - title: API
+    output: web, pdf
+    folderitems:
+
+    - title: Benchmark
+      url: /0.6_benchmark_api.html
+      output: web, pdf
+
+    - title: Phases
+      url: /0.6_phases_api.html
+      output: web, pdf
+
+    - title: Scenario
+      url: /0.6_scenario_api.html
+      output: web, pdf
+
+    - title: Steps
+      url: /0.6_steps_api.html
+      output: web, pdf
+
+    - title: HTTP Request
+      url: /0.6_step_httpRequest.html
+      output: web, pdf
+
+      subfolders:
+      - title: HTTP Response
+        output: web, pdf
+        subfolderitems:
+
+        - title: Handler
+          url: /0.6_handler.html
+          output: web, pdf
+
+        - title: Actions & Processors
+          url: /0.6_handler_api.html
+          output: web, pdf
+
+  - title: Custom Extensions
+    output: web, pdf
+    folderitems:
+
+    - title: Example Steps
+      url: /0.6_custom.html
+      output: web, pdf
+
+  - title: Frequently Asked Questions
+    output: web, pdf
+    folderitems:
+
+    - title: Frequently Asked Questions
+      url: /faq.html
+      output: web, pdf
+
+    - title: Troubleshooting
+      url: /troubleshoot.html
+      output: web, pdf

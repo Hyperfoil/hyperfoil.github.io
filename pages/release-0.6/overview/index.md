@@ -1,0 +1,52 @@
+---
+title: Introduction
+sidebar: 06_sidebar
+permalink: index.html
+folder: release-0.6/overview
+toc: false
+---
+
+<div class="row">
+  <div class="col-md-2">
+  <figure>
+    <img src="images/hierarchy_organization.png" alt="Distributed"  style="width:80%">
+    <figcaption>Distributed</figcaption>
+    </figure>
+  </div>
+   <div class="col-md-2">
+  <figure>
+    <img src="images/graph_arrow_spike.png" alt="Accurate"  style="width:90%">
+    <figcaption>Accurate</figcaption>
+    </figure>
+  </div>
+  <div class="col-md-2">
+  <figure>
+    <img src="images/puzzle_complete.png" alt="Versatile"  style="width:80%">
+    <figcaption>Versatile</figcaption>
+    </figure>
+  </div>
+  <div class="col-md-2">
+  <figure>
+    <img src="images/recycle_symbol.png" alt="Low-Allocation"  style="width:80%">
+    <figcaption>Low-Allocation</figcaption>
+    </figure>
+  </div>
+</div>
+
+
+
+## Overview
+
+Hyperfoil is a microservice-oriented distributed benchmark framework written in Java.  It is designed to be an Open System Model (asynchronously generates specified number of requests) by default, however, Close System Model is also supported.  When combining asynchronous & sequential operations, it can also create a Hybrid Model benchmark.  Internally it allocates as little resource as possible on the critical code path to prevent from garbage-collector to interfere with the operation.  It uses domain specific language expressed in YAML syntax to create a benchmark.  Pluggable custom extensions can be developed in Java for complex scenarios.
+
+
+&nbsp;
+&nbsp;
+
+
+Hyperfoil is licensed under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+
+## Getting started
+
+To get started, see [Getting Started](0.6_quickstart1.html).

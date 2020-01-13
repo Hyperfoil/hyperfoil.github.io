@@ -1,1 +1,0 @@
-[{{ include.src }}]({{ site.github.repository_url }}/tree/{{ site.last_release.tag }}/distribution/src/main/resources/examples/{{ include.src }})
