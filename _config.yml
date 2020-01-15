@@ -8,10 +8,6 @@ topnav_title: Hyperfoil
 
 site_title: Hyperfoil documentation
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
-
-company_name: IBM
-# this appears in the footer
-
 # github_editme_path: Hyperfoil/hyperfoil.github.io
 # if you're using Github, provide the basepath to the branch you've created for reviews, following the sample here. if not, leave this value blank.
 
@@ -35,7 +31,7 @@ exclude:
 
 feedback_subject_line: Jekyll documentation theme
 
-feedback_email: muchida@ca.ibm.com
+feedback_email: hyperfoil@hyperfoil.io
 # used as a contact email for the Feedback link in the top navigation bar
 
 # feedback_disable: true
@@ -100,10 +96,8 @@ defaults:
 # these are defaults used for the frontmatter for these file types
 
 sidebars:
-- home_sidebar
-- mydoc_sidebar
-- product1_sidebar
-- product2_sidebar
+- 05_sidebar
+- 06_sidebar
 - other
 
 description: "Microservice-oriented distributed benchmark framework."
