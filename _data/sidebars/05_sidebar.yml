@@ -1,0 +1,36 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: relase-0.5_sidebar
+  product: Release
+  version: 0.5
+  folders:
+
+  - title:
+    output: pdf
+    type: frontmatter
+    folderitems:
+    - title:
+      url: /titlepage.html
+      output: pdf
+      type: frontmatter
+    - title:
+      url: /tocpage.html
+      output: pdf
+      type: frontmatter
+
+  - title: Overview
+    output: web, pdf
+    folderitems:
+
+    - title: Introduction
+      url: /0.5_introduction.html
+      output: web, pdf
+
+    - title: Design
+      url: /0.5_design.html
+      output: web, pdf
+
+    - title: Basic Concept
+      url: /0.5_basic_concept.html
+      output: web, pdf
