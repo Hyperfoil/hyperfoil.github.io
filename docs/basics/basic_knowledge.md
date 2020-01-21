@@ -23,9 +23,9 @@ EXAMPLE
 
 Example description. 
 
-| Property | Description |
-| ------- | -------- |
-| Key | Explanation for the valye  |
+| Property | Type | Description |
+| ------- | ------- | ------- |
+| Key | Class | Explanation for the valye  |
 
 ***
 
@@ -45,11 +45,11 @@ POST
 
 Generic builder for generating a string. 
 
-| Property | Description |
-| ------- | -------- |
-| fromVar | Load the string from session variable.  |
-| pattern | Use pattern replacing session variables.  |
-| value | String value used verbatim.  |
+| Property | Type | Description |
+| ------- | ------- | ------- |
+| fromVar | String | Load the string from session variable.  |
+| pattern | String | Use pattern replacing session variables.  |
+| value | String | String value used verbatim.  |
 
 *** 
 
@@ -74,12 +74,12 @@ Set variable in session to certain value.
 | Use <code>var &lt;- value</code>. |
 
 
-| Property | Description |
-| ------- | -------- |
-| [intArray](#intArray) | Set variable to an (unset) integer array.  |
-| [objectArray](#objectArray) | Set variable to an (unset) object array.  |
-| value | String value.  |
-| var | Variable name.  |
+| Property | Type | Description |
+| ------- | ------- | -------- |
+| intArray | [Builder](#intArray) | Set variable to an (unset) integer array.  |
+| objectArray | [Builder](#objectArray) | Set variable to an (unset) object array.  |
+| value | String | String value.  |
+| var | String | Variable name.  |
 
 ***
 
