@@ -1,7 +1,7 @@
 # Basic Benchmark Structure
 
 
-Every benchmark starts with these global configuration.
+Every benchmark starts with this global configuration.
 
 ```yaml
 name: BENCHMARK_NAME
@@ -12,7 +12,7 @@ phases: ...
 ```
 
 * URL is the HTTP protocol and hostname of the Application Under Test (e.g. http://myapp.com)
-* Shared connections are physical HTTP (1.x or2) connection.
+* Shared connections are total number of physical HTTP connections.
 
 Example: 
 
@@ -26,7 +26,7 @@ phases: ...
 
 ## Multiple Core Support
 
-* By default, Hyperfoil only utlize single core for the execution for experimenting & debugging.  For production usage, add the `threads` that matches to the total CPU core numbers.
+* By default, Hyperfoil only utlizes single core for the execution for experimenting & debugging.  For production usage, add the `threads` that matches to the total CPU core numbers.
 
 ```yaml
 name: BENCHMARK_NAME
@@ -50,7 +50,7 @@ phases: ...
 
 ## Private HTTP Pools
 
-* To keep connection private to the session until the session completes and prefer these connection, use `ergonomics` with `privateHttpPools` true. (Note: Session is the state of one VU.)
+* To keep connection private to the session until the session completes and prefer these connection, use `ergonomics` with `privateHttpPools` true. (Note: Session is the state of one virtual user.)
 
 ```yaml
 name: BENCHMARK_NAME
@@ -76,9 +76,9 @@ http:
 phases: ...
 ```
 
-## DNS providing multiple IPs for load-balancing
+## DNS providing multiple IPs
 
-* When DNS is providing multiple IPs for load-balancing, use the `addresses` (e.g. service mesh such as ISTIO) 
+* When DNS is providing multiple IPs to go through one or more proxies, use the `addresses` (e.g. service mesh such as ISTIO) 
 
 ```yaml
 name: BENCHMARK_NAME
@@ -86,7 +86,8 @@ threads: CPU_CORES
 http:
   host: URL
   addresses:
-  - SERVICEMESH_GATEWAY
+  - PROXY_IP:PROXY_PORT
+  - ANOTHER_PROXY_IP
   sharedConnections: CONNECTIONS
 phases: ...
 ```
@@ -99,7 +100,8 @@ threads: 4
 http:
   host: http://myapp.com:9080
   addresses:
-  - 123.456.789.101
+  - 123.456.789.101:8080
+  - 123.456.789.102
   sharedConnections: 10
 phases: ...
 

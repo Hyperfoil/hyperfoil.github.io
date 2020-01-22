@@ -138,9 +138,7 @@ Phases:
 
 ## Sessions
 
-The state of each user's scenario is saved in the session; sometimes we speak about (re)starting sessions instead of starting new users. Hyperfoil tries to keep allocations during benchmark as low as possible and therefore it pre-allocates all memory for the scenario execution ahead. This is why all resources the benchmark uses are capped - it needs to know the sizes of pools.
-
-It is also necessary to know how many sessions we should preallocate - maximum concurrency of the system. If this threshold is exceeded Hyperfoil allocates further session as needed, but this is not the optimal mode of operation. It means that either you've underestimated the resources need or you've put a load on the system that it can't handle anymore, requests are not being completed and scenarios are not finished - which means that session objects cannot be recylced for reuse by next user.
+The state of each user's scenario is saved in the session, it is necessary to know how many sessions should be preallocated.  Please see [sessions]({{ "/docs/concepts.html#sessions" | absolute_url }})
 
 ```yaml
 Phases:
