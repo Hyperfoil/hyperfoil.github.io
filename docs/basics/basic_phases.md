@@ -78,7 +78,7 @@ Phases:
 
 ## always
 
-* There is fixed number of users and once the scenario is completed the users will start executing the scenario from beginning. This is called a closed-model and is similar to the way many benchmarks with fixed number of threads work.
+* There is fixed number of users. Each user will start executing the scenario independently & right after the scenario is completed, start repeating the same process.  Throughput varies depending on the number of users & response time.  This is called a closed-model and is similar to the way many benchmarks with fixed number of threads work.
 
 ```yaml
 Phases:

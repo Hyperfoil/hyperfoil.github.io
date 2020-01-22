@@ -1,18 +1,18 @@
 # Basic Benchmark Structure
 
 
-Every benchmark starts with these benchmark definition.
+Every benchmark starts with these global configuration.
 
 ```yaml
 name: BENCHMARK_NAME
 http:
   host: URL
   sharedConnections: CONNECTIONS
-Phases: ...
+phases: ...
 ```
 
 * URL is the HTTP protocol and hostname of the Application Under Test (e.g. http://myapp.com)
-* Shared connections are allocated at the start time by keeping a pool of memory and initialized for the Virtual Users (VUs). When the VU finishes it execution, this memory is reset and reused for another VU.
+* Shared connections are physical HTTP (1.x or2) connection.
 
 Example: 
 
@@ -21,7 +21,7 @@ name: My_App
 http:
   host: http://myapp.com:9080
   sharedConnections: 10
-Phases: ...
+phases: ...
 ```
 
 ## Multiple Core Support
@@ -34,7 +34,7 @@ threads: CPU_CORES
 http:
   host: URL
   sharedConnections: CONNECTIONS
-Phases: ...
+phases: ...
 ```
 
 Example: 
@@ -45,12 +45,12 @@ threads: 4
 http:
   host: http://myapp.com:9080
   sharedConnections: 10
-Phases: ...
+phases: ...
 ```
 
 ## Private HTTP Pools
 
-* To keep connection private to the session until the session completes and prefer these connection, use `ergonomics` with `privateHttpPools` true. (Note: session is a sequence of scenarios)
+* To keep connection private to the session until the session completes and prefer these connection, use `ergonomics` with `privateHttpPools` true. (Note: Session is the state of one VU.)
 
 ```yaml
 name: BENCHMARK_NAME
@@ -60,7 +60,7 @@ ergonomics:
 http:
   host: URL
   sharedConnections: CONNECTIONS
-Phases: ...
+phases: ...
 ```
 
 Example: 
@@ -73,12 +73,12 @@ ergonomics:
 http:
   host: http://myapp.com:9080
   sharedConnections: 10
-Phases: ...
+phases: ...
 ```
 
-## Service Mesh - ISTIO Example
+## DNS providing multiple IPs for load-balancing
 
-* When using a service mesh (e.g. ISTIO), Hyperfoil has to point to an IP address of service mesh gateway.  In this case, use the `addresses`:
+* When DNS is providing multiple IPs for load-balancing, use the `addresses` (e.g. service mesh such as ISTIO) 
 
 ```yaml
 name: BENCHMARK_NAME
@@ -88,7 +88,7 @@ http:
   addresses:
   - SERVICEMESH_GATEWAY
   sharedConnections: CONNECTIONS
-Phases: ...
+phases: ...
 ```
 
 Example: 
@@ -101,13 +101,12 @@ http:
   addresses:
   - 123.456.789.101
   sharedConnections: 10
-Phases: ...
+phases: ...
 
 ## Controller and agents
 
-While it is possible to run benchmarks directly from CLI, in its nature Hyperfoil is a distributed tool with master-slave architecture. **Controller** has the master role; this is a [Vert.x]((https://vertx.io))-based server with REST API. When a benchmark is started controller deploys agents (according to the benchmark definition), pushes the benchmark definition to these agents and orchestrates benchmark phases. **Agents** execute the benchmark, periodically sending statistics to the controller. This way the controller can combine and evaluate statistics from all agents on the fly. When the benchmark is completed all agents terminate.
-
-All communication between the controller and agents happens over Vert.x eventbus - therefore it is independent on the deployment type. (Currently only SSH-based deployment is implemented, requiring pubkey access to the agent nodes).
+* To use distributed mode, start the [controller] ({{ "/docs/installation.html" | absolute_url }}), then add the `agents` in benchmark.
+. Agents deployment types are [SSH]({{ "/docs/benchmark.html#ssh-deployer" | absolute_url }}) and [K8s]({{ "/docs/benchmark.html#kubernetesopenshift-deployer" | absolute_url }}) deployers.  Please see the detailed syntax in the link.
 
 ```yaml
 name: BENCHMARK_NAME
@@ -115,19 +114,14 @@ threads: CPU_CORES
 ergonomics:
   privateHttpPools: true
 agents:
-  agent1: TESTSERVER1:22
-  agent2: TESTUSER@TESTSERVER2
-  agent3:
-    host: TESTSERVER3
-    port: 22
-    dir: /some/other/path
+  AGENTS
 http:
   host: URL
   sharedConnections: CONNECTIONS
-Phases: ...
+phases: ...
 ```
 
-Example: 
+SSH deployer Example: 
 
 ```yaml
 name: My_App
@@ -139,7 +133,7 @@ agents:
 http:
   host: http://myapp.com:9080
   sharedConnections: 10
-Phases: ...
+phases: ...
 ```
 
 Next step is to create the [phases]({{ "/docs/basics/basic_phases.html" | absolute_url }})

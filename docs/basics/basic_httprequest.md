@@ -20,13 +20,12 @@ Example:
 
 # HTTP Request
 
-One special step is called httpRequest.  httpRequest consists of method (GET, POST, PUT, DELETE etc) and properties.  Properties can be headers and body.  httpRequest API can be found in the [pttpRequest reference](0.6_steps_httpRequest.html).
+A common step is called httpRequest and method property (GET, POST, PUT, DELETE etc) is mandatory. Other properties are optional.  For example, headers and body are other properties.  httpRequest API can be found in the [httpRequest reference]({{ "/docs/steps/step_httpRequest.html" | absolute_url }}).
 
 
 ```yaml
 - httpRequest:
-    METHOD:
-      value: URL_PATH
+    METHOD: URL_PATH
     HTTPREQUEST_PROPERTIES
 ```
 
@@ -36,8 +35,7 @@ Example:
 - httpRequest:
     headers:
       Content-Type: "application/x-www-form-urlencoded"
-    POST:
-      value: /flight/queryflights
+    POST: /flight/queryflights
     body:
       form:
       - name: airport
@@ -58,10 +56,9 @@ Example:
 
 ```yaml
 - httpRequest:
-    POST:
+    GET:
       value: /flight/queryflights
     handler:
-      body:
-        json:
-          query: .[] 
+      status:
+        range: 2xx
 ```
