@@ -4,7 +4,7 @@ This document explains some core terms used throughout the documentation.
 
 ## Controller and agents
 
-While it is possible to run benchmarks directly from CLI, in its nature Hyperfoil is a distributed tool with leader-follower architecture. **Controller** has the leader role; this is a [Vert.x]((https://vertx.io))-based server with REST API. When a benchmark is started controller deploys agents (according to the benchmark definition), pushes the benchmark definition to these agents and orchestrates benchmark phases. **Agents** execute the benchmark, periodically sending statistics to the controller. This way the controller can combine and evaluate statistics from all agents on the fly. When the benchmark is completed all agents terminate.
+While it is possible to run benchmarks directly from CLI, in its nature Hyperfoil is a distributed tool with leader-follower architecture. **Controller** has the leader role; this is a [Vert.x](https://vertx.io)-based server with REST API. When a benchmark is started controller deploys agents (according to the benchmark definition), pushes the benchmark definition to these agents and orchestrates benchmark phases. **Agents** execute the benchmark, periodically sending statistics to the controller. This way the controller can combine and evaluate statistics from all agents on the fly. When the benchmark is completed all agents terminate.
 
 All communication between the controller and agents happens over Vert.x eventbus - therefore it is independent on the deployment type.
 
