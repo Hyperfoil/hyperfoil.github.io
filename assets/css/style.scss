@@ -91,11 +91,10 @@ a { color: var(--theme-color-base); }
 
 #features { clear: both; display: table; }
 
-.feature { width: 20%; padding: 20px; float: left; }
-.feature div { text-align: center; }
-.feature_icon_box { height: 110px; }
+.feature { text-align: center; width: 20%; padding: 20px; float: left; }
+.feature_icon_box { height: 110px;}
 .feature_icon_box:hover { transform: scale(1.05); }
-.feature img { width: 100px; border: 0px; vertical-align: bottom; display: table-cell; }
+.feature img { width: 100px; border: 0px; }
 
 #blogcontainer {
 	display: flex;

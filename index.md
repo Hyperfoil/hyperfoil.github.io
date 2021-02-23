@@ -20,31 +20,25 @@ main_wrap_full_height: false
         Drive the load from many nodes.
     </div>
     <div class="feature">
-        <div>
-            <div class="feature_icon_box">
-                <!-- Fix me if you know CSS -->
-                <img style="position: relative; top: 15px; left: 7px;" src="assets/images/graph_arrow_spike.png" alt="Accurate">
-            </div>
-            <h4>Accurate</h4>
+        <div class="feature_icon_box">
+            <!-- Fix me if you know CSS -->
+            <img style="position: relative; top: 15px; left: 7px;" src="assets/images/graph_arrow_spike.png" alt="Accurate">
         </div>
-        All operations are async to avoid the <a href="https://www.azul.com/files/HowNotToMeasureLatency_LLSummit_NYC_12Nov2013.pdf">coordinated-omission fallacy</a>.
+        <h4>Accurate</h4>
+        <p>All operations are async to avoid the <a href="https://www.azul.com/files/HowNotToMeasureLatency_LLSummit_NYC_12Nov2013.pdf">coordinated-omission fallacy</a>.</p>
     </div>
     <div class="feature">
-        <div>
-            <div class="feature_icon_box">
-                <img src="assets/images/puzzle_complete.png" alt="Versatile">
-            </div>
-            <h4>Versatile</h4>
+        <div class="feature_icon_box">
+            <img src="assets/images/puzzle_complete.png" alt="Versatile">
         </div>
-        You can express complex scenarios either in YAML or through pluggable steps.
+        <h4>Versatile</h4>
+        <p>You can express complex scenarios either in YAML or through pluggable steps.</p>
     </div>
     <div class="feature">
-        <div>
-            <div class="feature_icon_box">
-                <img src="assets/images/recycle_symbol.png" alt="Low-allocation">
-            </div>
-            <h4>Low-allocation</h4>
+        <div class="feature_icon_box">
+            <img src="assets/images/recycle_symbol.png" alt="Low-allocation">
         </div>
-        Internally we try to allocate as little as possible on the critical code paths to not let garbage-collector disturb the operations.
+        <h4>Low-allocation</h4>
+        <p>Internally we try to allocate as little as possible on the critical code paths to not let garbage-collector disturb the operations.</p>
     </div>
 </div>

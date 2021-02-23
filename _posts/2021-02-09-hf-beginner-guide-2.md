@@ -5,7 +5,7 @@ excerpt: In this post we will focus on processing of responses and user workflow
 
 > This article is intended to be published on other sites, too - therefore it contains introduction to concepts this blog’s readers are probably familiar with.
 
-In the [previous part]({{ '/2021/01/25/hf-beginner-guide-1.html' | absolute_url }}) we've deployed our demo application (Vehicle Market) and exercised some basic requests against that. In this post we will focus on processing of responses and user workflow through the site.
+In the [previous part]({{ '/2021/01/25/hf-beginner-guide-1.html' | absolute_url }}) we've deployed our demo application (Vehicle Market) and exercised some basic requests against that. In this post we will focus on processing responses and user workflow through the site.
 
 ## Processing responses
 
