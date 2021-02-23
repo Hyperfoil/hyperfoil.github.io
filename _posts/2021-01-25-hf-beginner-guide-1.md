@@ -11,10 +11,10 @@ You'll learn how to write a simple Hyperfoil benchmark and run it straight from 
 
 ## Introduction
 
-Meet Hyperfoil, a swiss-army knife of web benchmark driver. This is an opensource (ASL2.0) tool that sports a set of properties that we could not find in any of the existing load drivers:
+Meet Hyperfoil, a swiss-army knife of web benchmark driver. This is an opensource ([ASL2.0](https://github.com/Hyperfoil/Hyperfoil/blob/master/LICENSE)) tool that sports a set of properties that we could not find in any of the existing load drivers:
 
-* Do it the **right way**: Many tools use a *closed model* for driving the load - spawn a bunch of threads and fire synchronous requests, delaying further requests until the responses to previous ones arrive. While this is quite useful for quick tests when you are only interested in the maximum throughput (and Hyperfoil supports this mode, too) applying feedback from the server does not simulate what latencies would users actually observe - closed model is subject to a [coordinated omission problem](https://www.youtube.com/watch?v=lJ8ydIuPFeU). Hyperfoil is designed with *open model* in mind, requests are executed asynchronously and independently of the responses from the tested system.
-* Drive the load **as far up as you need**: Production systems often span whole clusters and you can't get them utilized by a single load generator. With Hyperfoil you don't need to hack bash scripts to start the benchmark concurrently on several machines and then combine the results in a spreadsheet - Hyperfoil is distributed by design.
+* Do it the **right way**: Many tools use a *closed model* for driving the load - they spawn a fixed set of threads and fire synchronous requests, delaying further requests until the responses to previous ones arrive. While this is quite useful for quick tests, when you are only interested in the maximum throughput (and Hyperfoil supports this mode, too), applying feedback from the server does not simulate what latencies would users actually observe - closed model is subject to a [coordinated omission problem](https://www.youtube.com/watch?v=lJ8ydIuPFeU). Hyperfoil is designed with *open model* in mind, requests are executed asynchronously and independently of the responses from the tested system.
+* Drive the load **as far as you need**: Production systems often span whole clusters and you often can't drive up system utilization using a single load generator. With Hyperfoil you don't need to hack bash scripts to start the benchmark concurrently on several machines and then combine the results in a spreadsheet - Hyperfoil is distributed by design.
 * Don't oversimplify: In order to anticipate the behaviour when your users come the benchmark should do what do users would do. Hyperfoil is not limited to hitting a fixed set of URLs; you can describe complex logic in a YAML syntax, and if this is insufficient or too cumbersome you can extend it in good ol' Java.
 * Opensource: There are lies, damned lies, and benchmarks. When we publish results we want everyone to be able to reproduce them, or prove us wrong. Having the tool publicly available is certainly a step towards that goal.
 
@@ -29,11 +29,11 @@ curl -L http://vehicle-market.hyperfoil.io > /tmp/vehicle-market.yaml
 podman-compose -f /tmp/vehicle-market.yaml -p vehicle-market up -d
 ```
 
-Now you can go to [http://localhost:8080](http://localhost:8080) and browse through the application for a bit.
+Now you can go to [http://localhost:8080](http://localhost:8080) and browse through the application.
 
 ## First benchmark
 
-In this first post we'll create a simple benchmark that does not simulate the user too well, hitting different pages independently. Let's create a new directory, e.g. `$HOME/vehicle-market/benchmarks` to host our benchmarks there.
+In this first post we'll create a simple benchmark that does not realistically simulate a user, hitting different pages independently. Let's create a new directory, e.g. `$HOME/vehicle-market/benchmarks` to host our benchmarks there.
 
 ```bash
 # VMB stands for Vehicle Market Benchmarks
@@ -61,13 +61,13 @@ scenario:
 
 This benchmark is going create 10 connections <q data-ref="connections"></q> to `http://localhost:8080` <q data-ref="http-host"></q> and during 10 seconds <q data-ref="duration"></q> run the scenario 10 times per second in average <q data-ref="users-per-sec"></q>. By default the in-VM agent (load generator) is single-threaded; the property <q data-ref="connections"></q> is called *shared connections* because if you increase the thread count or run the benchmark in a distributed setup using multiple agents there will be still 10 connections to the tested system, evenly distributed among agents and threads.
 
-Hyperfoil does not operate with the notion of requests per second but with (virtual) users per second. Our scenario is the most trivial one, only firing single GET request to the root path (`/`) <q data-ref="http-request"></q> and therefore the number of requests equals to number of virtual users (also called user sessions).
+**Hyperfoil does not operate with the notion of requests per second but with (virtual) users per second.** Our scenario is the most trivial one, only firing single GET request to the root path (`/`) <q data-ref="http-request"></q> and therefore the number of requests equals to number of virtual users (also called user sessions).
 
 We haven't commented yet on `fetchIndex` <q data-ref="seq-name"></q>. The scenario consists of one or more reusable *sequences*, each comprised of one or more *steps*. In our example `fetchIndex` is the name of the sequence, and there's a single step: [httpRequest](/docs/steps/step_httpRequest.html) (this can have many properties, `GET` selecting both the method and path being one of them).
 
 ## Get it running
 
-When we have our benchmark written down we need to get Hyperfoil up. In future parts we'll show how to run Hyperfoil truly distributed on Openshift (it's possible to run it distributed on bare metal, too) but for now we'll just open the CLI in a container and start it all in-process:
+Now we have our benchmark defined we need to get Hyperfoil running. In future posts we'll show how to run Hyperfoil truly distributed on Openshift (it's possible to run it distributed on bare metal, too) but for now we'll just open the CLI in a container and start it all in-process:
 
 ```bash
 podman run -it --rm -v $VMB:/benchmarks:Z -v /tmp/reports:/tmp/reports:Z --network=host quay.io/hyperfoil/hyperfoil cli
@@ -75,7 +75,7 @@ podman run -it --rm -v $VMB:/benchmarks:Z -v /tmp/reports:/tmp/reports:Z --netwo
 
 In the command above we are mounting the benchmarks directory into `/benchmarks` in the container and writable `/tmp/reports` to the same path for a report later on. We are also using *host network* - by default the container would have its own network and `localhost:8080` could not reach Vehicle Market.
 
-In the CLI type `start-local` (tab completion works) to start Hyperfoil controller in the same VM, and then we can upload the benchmark (using `upload`) and get it running with `run`:
+In the CLI type `start-local` (tab completion works) to start Hyperfoil controller in the same VM, and then we can upload the benchmark (using `upload`) and start it running with `run`:
 
 <pre class="nohighlight hljs"><code>
 [hyperfoil]$ start-local
@@ -95,7 +95,7 @@ Started: 2021/01/25 17:00:31.869    Terminated: 2021/01/25 17:00:41.881$
 main  TERMINATED  17:00:31.869             17:00:41.880  10011 ms (exceeded by 11 ms)  10.00 users per second
 </code></pre>
 
-The benchmark was successfully finished, it's time to check on the results. CLI lets you display a simplified table of results using command `stats`; you can get all the gory details in a JSON-formatted file using `export`.
+The benchmark successfully finished, it's time to check on the results. CLI lets you display a simplified table of results using command `stats`; you can get all the gory details in a JSON-formatted file using `export`.
 
 <pre class="language-nohighlight hljs"><code>
 [hyperfoil@in-vm]$ stats
@@ -104,7 +104,7 @@ Total stats from run 0000
 main   fetchIndex  10.60 req/s       106  5.23 ms  5.08 ms  6.91 ms  9.96 ms  10.62 ms  10.62 ms  106    0    0    0      0         0       0     0 ns
 </code></pre>
 
-You might be alerted at first by seeing 106 requests instead of 100 here; that's by design, though. Hyperfoil does not execute the requests every 100 ms on the dot because that's not what the users would do; the incoming users are randomized using [Poisson point process](https://en.wikipedia.org/wiki/Poisson_point_process).
+You might be concerned at first by seeing 106 requests instead of 100 here; that's by design, though. Hyperfoil does not execute the requests precisly every 100 ms because that's not what the users would do; the incoming users are randomized using [Poisson point process](https://en.wikipedia.org/wiki/Poisson_point_process).
 
 Exploring the JSON from `export` might not be the most convenient way, but there's a third option: `report` command creates a fancy HTML report. Were you not running in a container a browser window with this report would be opened, too.
 
@@ -119,7 +119,7 @@ The front page shows only one rather wide column as we've used only one phase, b
 
 ## Set phasers to kill
 
-Allright, you could easily run a similar benchmark using other tools. Let's add a different type of request into the mix. For that we will need to introduce you to the concept of *phases*. In Hyperfoil, phases are (by default) independent workloads. We've already seen phase `main` being reported in the statistics listing; the previous benchmark used a simplified single-constant-rate-phase syntax. When adding second phase we need to use the 'full' syntax:
+Allright, you could easily run a similar benchmark using other tools. Let's add a different type of request into the mix. For that, we will need to introduce you to the concept of *phases*. In Hyperfoil, phases are (by default) independent workloads. We've already seen a `main` phase being reported in the statistics listing; the previous benchmark used a simplified single-constant-rate-phase syntax. When adding second phase we need to use the 'full' syntax:
 
 ```yaml
 name: first-benchmark
@@ -167,7 +167,7 @@ Note that `edit` does not modify the file in `/benchmarks/`; Hyperfoil controlle
 
 ## Forks
 
-The benchmark above was somewhat too verbose as the two phases (running in parallel) used the same setup. For those that don't like to repeat themselves there's an alternative way to execute two different scenarios: forks.
+The benchmark above was somewhat too verbose as the two phases (running in parallel) used the same setup. For those that don't like to repeat themselves there's an alternative way to execute two different scenarios: `forks`
 
 <pre class="language-yaml hljs"><code>
 name: first-benchmark
@@ -202,7 +202,7 @@ main/listVehicles  fetchIndex    19.40 req/s       194  2.11 ms  2.16 ms  2.39 m
 main/seeDetails    fetchDetails  11.00 req/s       110  3.45 ms  3.47 ms  3.72 ms  4.82 ms  5.64 ms  5.64 ms  110    0    0    0      0         0       0     0 ns
 ```
 
-Internally we've created two phases (actually there's one more, see more about that [in the docs](/userguide/benchmark/phases.html)) and named them `main/listVehicles` and `main/seeDetails`.
+Internally we've created two phases (actually there's one more, see more about [phases](/userguide/benchmark/phases.html)) and named them `main/listVehicles` and `main/seeDetails`.
 
 The benchmark above does not have any warm-up nor ramp-up. Let's add one, as a phase. However, we don't want to repeat ourselves copypasting the scenarios or forks. Let's use YAML anchors for that:
 
@@ -244,7 +244,7 @@ We have marked each fork with an unique identifier <q data-ref="anchor-1"></q><q
 
 ## Building the scenario
 
-There's more to phases and we suggest going through [the quickstarts](/quickstart/quickstart4.html) but let's move to another topic: the scenarios themselves. So far we've been hitting only two static resources, the root and one offering. Let's get back to the very first example and add some randomization:
+There's more to phases and we suggest going through [the quickstarts](/quickstart/quickstart4.html), but let's move to another topic: the scenarios themselves. So far we've been hitting only two static resources, the root and one offering. Let's get back to the very first example and add some randomization:
 
 ```yaml
 name: first-benchmark
@@ -311,7 +311,11 @@ main//static/js/2.256a11d3.chunk.js: Progress was blocked waiting for a free con
 main//static/js/main.656b4a9d.chunk.js: Progress was blocked waiting for a free connection. Hint: increase http.sharedConnections.</span>
 </code></pre>
 
-When running this in CLI you'd see that four of these metrics would be printed in red color and have a non-zero number in the BLOCKED column. This is happening because with more requests it's quite likely that one user starts before previous one has received all the responses. With HTTP 1.1 (pipelining disabled by default) and only 10 connections there would not be enough available connections and the virtual user couldn't send the request right away. This wouldn't happen to a real user - that one is not limited by other users. Had we allowed a feedback from the server (taking few moments to respond) our latency readings could be dramatically skewed. This is why Hyperfoil warns us that the benchmark wasn't 100% correct and hints us to increase number of connections. Alternatively we could switch to HTTP 2 that supports multiplexing several requests over single connection.
+When running this in CLI you'd see that four of these metrics would be printed in red color and have a non-zero number in the **BLOCKED** column. This is happening because with more HTTP requests being sent, it's quite likely that one user starts before a previous user has received all the responses. 
+
+With HTTP 1.1 (pipelining disabled by default) and only 10 connections there would not be enough available connections and the virtual user couldn't send the request right away. This wouldn't happen to a real user - that one is not limited by other users. Had we allowed a feedback from the server (taking few moments to respond) our latency readings could be dramatically skewed. This is why Hyperfoil warns us that the benchmark wasn't 100% correct and hints us to increase number of connections. 
+
+Alternatively we could switch to HTTP 2 that supports multiplexing several requests over single connection.
 
 ## To be continued...
 Comparing the requests to a browser's network monitor we've omitted the call to `http://localhost:8082/offering/${offering}` (executed from script) and loading images from `http://localhost:8080/images/car?...`. We will cover that in the [next part]({{ '/2021/02/09/hf-beginner-guide-2.html' | absolute_url }}).
