@@ -9,7 +9,7 @@ In the [previous part]({{ '/2021/01/25/hf-beginner-guide-1.html' | absolute_url 
 
 ## Processing responses
 
-We will start with a benchmark that fetches single random page with offering, without the HTML resources part for brevity:
+We will start with a benchmark that fetches single random page with an offering, without the HTML resources part for brevity:
 
 ```yaml
 name: first-benchmark
@@ -28,7 +28,7 @@ scenario:
       GET: /offering/${offering}
 ```
 
-We have investigated what to browser would do and found out that this page executes a request against `http://localhost:8082/offering/${offering}` that will fetch a JSON document. Notice the different port `8082`: we will need to add another endpoint to the configuration and start selecting the endpoint in `httpRequest` steps:
+We have investigated what a browser would do, and found out that this page executes a request against `http://localhost:8082/offering/${offering}` to fetch a JSON document. Notice the different port `8082`: we will need to add another endpoint to the configuration and start selecting the endpoint in `httpRequest` steps:
 
 ```yaml
 name: vehicle-market
@@ -54,7 +54,7 @@ scenario:
       authority: localhost:8082
 ```
 
-We have added the another sequence `fetchJson` with a second request. When the `scenario` contains the sequences as a list these are executed in-order; the second sequence is not started until the last step from the previous one completes. While you could keep both requests in one sequence the sequence name is used as the default name for the metric, therefore a metric with the same name would be reported twice. Moving the request to its own sequence solves the problem.
+We have added the another sequence `fetchJson` with a second request. When the `scenario` contains the sequences as a list these are executed in-order; the second sequence is not started until the last step from the previous one completes. While you could keep both requests in one sequence, the sequence name is used as the default name for the metric. Therefore a metric with the same name would be reported twice. Moving the request to its own sequence solves the problem.
 
 After receiving the JSON the script would modify the DOM and add images referenced in the JSON. Let's replicate that in our benchmark:
 
@@ -104,7 +104,7 @@ scenario:
             addToInt: numImages--
 ```
 
-The scenario does not host a simple list of sequences anymore; we have moved the original sequences under `orderedSequences` and added another section `sequences` with sequence `fetchImage`. The scenario starts with one instance of `fetchWebpage`, when this completes a single instance of `fetchJson` is created. There are no `fetchImage` instances at the begining - `sequences` hosts only definitions but does not create any instances. For details see [documentation]({{ '/userguide/benchmark/scenario.html' | absolute_url }})
+The scenario does not host a simple list of sequences anymore; we have moved the original sequences under `orderedSequences` and added another section `sequences` with sequence `fetchImage`. The scenario starts with one instance of `fetchWebpage`, when this completes a single instance of `fetchJson` is created. There are no `fetchImage` instances at the beginning - `sequences` hosts only definitions but does not create any instances. For details see [documentation]({{ '/userguide/benchmark/scenario.html' | absolute_url }})
 
 In the request in `fetchJson` we have registered a handler for response body; This handler applies the `.gallery[].url` query and stores the URLs in an array stored in the session variable `gallery`. This array has 10 slots; as any other resource in Hyperfoil scenario this array is pre-allocated before the benchmark starts. Therefore we need to limit the size - if there are more images than slots the other URLs are simply discarded.
 
@@ -211,7 +211,7 @@ main   wrongLogin        9.30 req/s        93  4.16 ms  4.98 ms   5.83 ms   6.98
 
 We can now see 2xx responses for `successfulLogin` and 4xx responses for `wrongLogin` as we expect. Also the response times for a successful login are somewhat higher, maybe because the server stores a new token in the database.
 
-Looking at browser network log we can see that the webpage captures this token and fetches user profile using that (it will also use this token in the `Authorization` header when talking to other services). Let's add this to our test, and one more thing: while Hyperfoil can send another login request almost immediately your users would need some time to type these. Therefore we are going to add some user think time:
+Looking at browser network log we can see that the web-page captures this token and fetches user profile using that (it will also use this token in the `Authorization` header when talking to other services). Let's add this to our test, and one more thing: while Hyperfoil can send another login request almost immediately your users would need some time to type these. Therefore we are going to add some user think time:
 
 ```yaml
 name: login
@@ -289,7 +289,7 @@ scenario:
 
 We have added constant 2-second pause as the last step of `fetchIndex`, and another pause into `wrongLogin` using [negative-exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution) with expected average of 2 seconds but ranging from 500 ms to 10 seconds (the actual average will be about 2044 ms due to these limits).
 
-Then we have added a simple body handler to the successful login request, storing the value in session variable `token`, and a `nextSequence` step to the `successfulLogin` sequence that will start the `fetchProfile` sequence with single `httpRequest`. You can notice that we had to use a new notation in the pattern: `${urlencode:token}`. While pasting numbers into the request path is finetoken can contain some special symbols (such as +) and we need to URL-encode that. Contrary to the form used in the `successfulLogin` Hyperfoil cannot run the encoding automatically for you since it can't know if the session variable contents is already URL-encoded (e.g. if you fetched an existing URL into that).
+Then we have added a simple body handler to the successful login request, storing the value in session variable `token`, and a `nextSequence` step to the `successfulLogin` sequence that will start the `fetchProfile` sequence with single `httpRequest`. You can notice that we had to use a new notation in the pattern: `${urlencode:token}`. While pasting numbers into the request path is fine, a token might contain special symbols (such as +), and we need to URL-encode those. Contrary to the form used in the `successfulLogin` Hyperfoil cannot run the encoding automatically for you since it can't know if the session variable contents is already URL-encoded (e.g. if you fetched an existing URL into that).
 
 Let's run this and see the output of `stats` command:
 
@@ -345,4 +345,4 @@ main   in-vm    1   53
 
 Our guess that we'll need 60 concurrent sessions was not too far off as at one moment we had 53 sessions running concurrently. You can also run this command when the test is being executed to see actual number of sessions rather than grand total for the whole phase.
 
-This concludes our second blogpost with a deep dive into complex scenarios. In the [next article]({{ '/2021/02/16/hf-beginner-guide-3.html' | absolute_url }}) we'll go through setting Hyperfoil up in an Openshift cluster.
+This concludes our second blog post with a deep dive into complex scenarios. In the [next article]({{ '/2021/02/16/hf-beginner-guide-3.html' | absolute_url }}) we'll go through setting Hyperfoil up in an OpenShift cluster.
