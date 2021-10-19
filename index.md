@@ -25,7 +25,7 @@ main_wrap_full_height: false
             <img style="position: relative; top: 15px; left: 7px;" src="assets/images/graph_arrow_spike.png" alt="Accurate">
         </div>
         <h4>Accurate</h4>
-        <p>All operations are async to avoid the <a href="https://www.azul.com/files/HowNotToMeasureLatency_LLSummit_NYC_12Nov2013.pdf">coordinated-omission fallacy</a>.</p>
+        <p>All operations are async to avoid the <a href="https://slides.yowconference.com/yow2014/Tene-HowNotToMeasureLatency.pdf">coordinated-omission fallacy</a>.</p>
     </div>
     <div class="feature">
         <div class="feature_icon_box">
