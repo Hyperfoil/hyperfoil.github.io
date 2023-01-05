@@ -8,7 +8,7 @@ Common technical issues that you could hit during benchmark development.
 
 The first step to identifying any issue is getting a verbose log - setting logging level to TRACE. How exactly you do that depends on the way you deploy Hyperfoil:
 
-1. If you use CLI and the `start-local` command, just run it as `start-local -l TRACE` which sets the default logging level. You'll find the log in `/tmp/hyperfoil.local.log` by default.
+1. If you use CLI and the `start-local` command, just run it as `start-local -l TRACE` which sets the default logging level. You'll find the log in `/tmp/hyperfoil/hyperfoil.local.log` by default.
 2. If you run Hyperfoil manually in [standalone mode]({{ "/userguide/installation/start_manual.html" | absolute_url }}) (non-clustered) the agent will run in the same JVM as the controller. You need to add `-Dlog4j.configurationFile=file:///path/to/log4j2-trace.xml` option when starting `standalone.sh`. If you start Hyperfoil through Ansible the same is set using `hyperfoil_log_config` variable.
 3. If you run Hyperfoil in clustered mode, the failing code is probably in the agents. You need to pass the logging settings to agents using the deployer; with [SSH deployer]({{ "/docs/benchmark.html#ssh-deployer" | absolute_url }}) you need to add `-Dlog4j.configurationFile=file:///path/to/log4j2-trace.xml` to the `extras` property, in [Kubernetes/Openshift]({{ "/docs/benchmark.html#kubernetesopenshift-deployer" | absolute_url }}) there is the `log` option that lets you set the logging configuration through a config-map.
 
