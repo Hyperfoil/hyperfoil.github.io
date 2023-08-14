@@ -80,18 +80,18 @@ ergonomics:
 phases:
 - calibration:
     always:
-    users: 10 # option -c
-    duration: 6s
-    maxDuration: 70s # This is duration + default timeout 60s
-    scenario: &scenario
-    - request:
-      - httpRequest:
-          GET: /
-          timeout: 60s # option --timeout
-          headers:
-          - accept: application/json # option -H
-          handler:
-            rawBytes: ... # Handler to record the data for 'Transfer/sec'
+      users: 10 # option -c
+      duration: 6s
+      maxDuration: 70s # This is duration + default timeout 60s
+      scenario: &scenario
+      - request:
+        - httpRequest:
+            GET: /
+            timeout: 60s # option --timeout
+            headers:
+            - accept: application/json # option -H
+            handler:
+              rawBytes: ... # Handler to record the data for 'Transfer/sec'
 - test:
     always:
       users: 10 # option -c
