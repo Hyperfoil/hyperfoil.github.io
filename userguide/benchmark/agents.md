@@ -34,6 +34,7 @@ The user account running Hyperfoil Controller must have a public-key authorizati
 | user     | Current username                                                            |                                                                                                                        |
 | host     |                                                                             | This property is mandatory.                                                                                            |
 | port     | 22                                                                          |                                                                                                                        |
+| sshKey   | id_rsa                                                                      | Optionally define a different named key in the `$HOME/.ssh` directory                                                  |
 | dir      | Directory set by system property `io.hyperfoil.rootdir` or `/tmp/hyperfoil` | Working directory for the agent. This directory can be shared by multiple agents running on the same physical machine. |
 | cpu      | (all cpus)                                                                  | If set the CPUs where the agent can run is limited using `taskset -c &lt;cpu&gt;`. Example: `0-2,6`                    |
 
