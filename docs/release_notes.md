@@ -2,6 +2,16 @@
 ---
 # Release notes
 
+## 0.26 (2024-05-31)
+
+* Remove java.net.preferIPv4Stack=true
+* Disable automatic report opening with --silent option
+* Throw exception for misconfigured multi-host HTTP benchmark
+* Add agent property to configure the ssh key used
+* Set CPU Request in Benchmark
+* s390x: Define utf-8 encoding in compiler plugin
+* Dependecies upgrades, e.g., infinispan and vertx
+
 ## 0.25.2 (2023-08-03)
 
 * Bug fix: Version command not working
