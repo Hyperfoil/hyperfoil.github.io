@@ -2,11 +2,35 @@
 ---
 # Hyperfoil.io Website Based on Jekyll
 
-## Getting Started
+>[!NOTE]
+> The content of this `master` branch is old, :point_right: checkout [Hyperfoil](https://github.com/Hyperfoil/Hyperfoil/tree/master/docs) repository for the website source code or the [gh-pages](https://github.com/Hyperfoil/hyperfoil.github.io/tree/gh-pages) branch of this repository for the live content published at [hyperfoil.io](https://hyperfoil.io).
+
+## New website
+
+Starting from July 15th, we published a renewed version of the Hyperfoil website.
+
+With this renewal we changed some things that are summarized below:
+- The source code of the website has been move in the [Hyperfoil](https://github.com/Hyperfoil/Hyperfoil/tree/master/docs) repository, this way docs changes can be done in the same pull request of the feature change.
+- The website is entirely based on [docsy](https://www.docsy.dev/) Hugo template, therefore we switched to [Hugo](https://gohugo.io/) as static site generator.
+- The live content is hosted in the [gh-pages](https://github.com/Hyperfoil/hyperfoil.github.io/tree/gh-pages) branch of this repository, we will empty the `master` one in the coming future.
+- The website deployment is automated using a GitHub worklofow, see [deploy-gh-pages.yaml](./.github/workflows/deploy-gh-pages.yaml) for more details.
+- The live content points to the latest *stable* branch in the Hyperfoil repository, e.g., `0.26.x`. You can find the used branch in the [deploy-gh-pages.yaml](https://github.com/lampajr/hyperfoil.github.io/blob/355ed02d88f3247e946b975b8235ad7be2fdd6fb/.github/workflows/deploy-gh-pages.yaml#L30) configuration.
+
+
+For more information on how to build (locally) and update the website content, please checkout [github.com/Hyperfoil/Hyperfoil/docs](https://github.com/Hyperfoil/Hyperfoil/tree/master/docs).
+
+## Old website
+
+>[!NOTE]
+> This content will be removed in the coming future!
+
+The `master` branch contains the content for the old Jekyll-based static website that is no longer published anywhere.
+
+### Getting Started
 
 These instructions will get you a copy of the Hyperfoil.io website up and running on your local machine for development and testing purposes.
 
-### Installation
+#### Installation
 [Jekyll static site generator docs](https://jekyllrb.com/docs/).
 
 1. Install a full [Ruby development environment](https://jekyllrb.com/docs/installation/)
