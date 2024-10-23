@@ -1,5 +1,0 @@
----
----
-# Coordinated omission
-
-This page will explain the coordinated omission problem...
